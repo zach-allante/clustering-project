@@ -127,10 +127,11 @@ def data_prep(df, col_to_remove=[], prop_required_columns=0.5, prop_required_row
     '''this function will remove columns and keep the requested amount of data in the df '''
     df = remove_columns(df, col_to_remove)
     df = handle_missing_values(df, prop_required_columns, prop_required_rows)
+    df = df.dropna()
     return df
 
 def scale_zillow(impdf,impfeats):
     Scaler = MinMaxScaler()
-    impdf[impfeats] = Scaler.fit_transform(impdf)
+    impdf[impfeats] = Scaler.fit_transform(impdf[impfeats])
     return impdf
     
