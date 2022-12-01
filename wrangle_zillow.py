@@ -66,6 +66,15 @@ def prepare_zillow(df):
     ''' Prepare zillow data for exploration'''
 
     # Convert binary categorical variables to objects with name of location
+    df['location'] = df.fips.map({6037.0: 0,6059.0:1,6111.0:2})
+    df['age'] = 2022 - df.age
+    #dummies
+    df['orange_county'] = 0
+    df['ventura'] = 0
+    df['losangeles'] = 0
+    df.orange_county[df.location == 1] = 1
+    df.ventura[df.location == 2] = 1
+    df.losangeles[df.location == 0] = 1
     cleanup_fips = {"fips":{6037: 'Los Angeles CA', 6059:'Orange County CA', 6111: 'Ventura County CA'} }    
     df = df.replace(cleanup_fips)
     return df
@@ -120,7 +129,8 @@ def data_prep(df, col_to_remove=[], prop_required_columns=0.5, prop_required_row
     df = handle_missing_values(df, prop_required_columns, prop_required_rows)
     return df
 
-def scale_zillow(df,columns):
-    Scaler = Minmaxscaler()
-    scaled_df = Scaler.fit_transform(df[columns])
-    return scaled_df
+def scale_zillow(impdf,impfeats):
+    Scaler = MinMaxScaler()
+    impdf[impfeats] = Scaler.fit_transform(impdf)
+    return impdf
+    
