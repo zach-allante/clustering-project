@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pydataset import data
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, QuantileTransformer
+
 
 # ------------------- ACQUIRING DATA -------------------#
 def new_zillow_data():
