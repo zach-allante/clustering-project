@@ -68,19 +68,15 @@ def prepare_zillow(df):
     # Convert binary categorical variables to objects with name of location
     cleanup_fips = {"fips":{6037: 'Los Angeles CA', 6059:'Orange County CA', 6111: 'Ventura County CA'} }    
     df = df.replace(cleanup_fips)
-    
-    # train/validate/test split
+    return df
+
+def wrangle_zillow(df):
+    '''Acquire and prepare data from Zillow database for explore'''
+     # train/validate/test split
     train_validate, test = train_test_split(df, test_size=.2, random_state=123)
     train, validate = train_test_split(train_validate, test_size=.3, random_state=123)      
     
-    return train, validate, test    
-
-def wrangle_zillow():
-    '''Acquire and prepare data from Zillow database for explore'''
-    train, validate, test = prepare_zillow(get_zillow_data())
-    
-    return train, validate, test
-
+    return train, validate, test 
 # ------------------- CLEANING DATA -------------------#
 
 def nulls_by_col(df):
