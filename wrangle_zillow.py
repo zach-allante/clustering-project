@@ -131,6 +131,7 @@ def data_prep(df, col_to_remove=[], prop_required_columns=0.5, prop_required_row
     return df
 
 def scale_zillow(impdf,impfeats):
+    '''this function scales data'''
     Scaler = MinMaxScaler()
     impdf[impfeats] = Scaler.fit_transform(impdf[impfeats])
     return impdf
